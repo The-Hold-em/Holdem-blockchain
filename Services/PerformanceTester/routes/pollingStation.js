@@ -1,10 +1,8 @@
-import express from 'express';
+import express from "express";
 const router = express.Router();
 
-import constroller from '../controllers/pollingStation.js';
+import controller from "../controllers/pollingStation.js";
 
-router.route('/')
-    .get(constroller.startTest)
-    .post(constroller.fakePoint);
+router.route("/").get(controller.startTest).post(controller.fakePoint);
 
 export default router;

@@ -2,6 +2,7 @@ const { VoteList } = require("../models/votelist");
 const State = require("../helpers/state");
 
 exports.receive_vote_list = (req, res, next) => {
+  State.processStartTime = new Date().getTime();
   const pollingStationPublicKey = req.body.pollingStationPublicKey;
   const signature = req.body.signature;
   const votes = req.body.votes;

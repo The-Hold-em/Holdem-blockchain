@@ -10,7 +10,7 @@ exports.recevie_vote = (req, res, next) => {
   var vote = new Vote(publicKey, candinateId, signature);
   if (vote.isValid()) {
     State.votes.push({
-      publicKey: req.body.publicKey,
+      publicKey: publicKey,
       candinateId: req.body.candinateId,
       signature: req.body.signature,
     });

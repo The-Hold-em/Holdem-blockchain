@@ -2,11 +2,12 @@ const { Block } = require("./block");
 const { Vote } = require("./vote");
 const { VoteList } = require("./votelist");
 const State = require("../helpers/state");
+fs = require("fs");
 
 class Blockchain {
   constructor() {
     this.chain = [this.createGenesisBlock()];
-    this.difficulty = 4;
+    this.difficulty = 5;
     this.voteList = new VoteList();
   }
 
@@ -40,8 +41,31 @@ class Blockchain {
     );
     block.mineBlock(this.difficulty);
 
-    console.log("Block succesfully mined");
     this.chain.push(block);
+    console.log(
+      "\n####################################################################\n"
+    );
+    console.log("Block succesfully mined");
+
+    State.processEndTime = new Date().getTime();
+    console.log("Block nonce: " + block.nonce);
+    console.log(
+      "Process Time: " + (State.processEndTime - State.processStartTime)
+    );
+    fs.writeFileSync(
+      "processTimes.txt",
+      "####################################################################\n" +
+        "Process time: " +
+        (State.processEndTime - State.processStartTime) +
+        "\nNonce: " +
+        block.nonce +
+        "\n####################################################################" +
+        "\n",
+      { encoding: "utf8", flag: "a+" }
+    );
+    console.log(
+      "\n####################################################################\n"
+    );
   }
 
   getVoteResults() {
